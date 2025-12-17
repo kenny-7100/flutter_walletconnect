@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: 'env/.env');
   runApp(const MyApp());
 }
 
@@ -53,7 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            FilledButton(child: Text('Connect'), onPressed: () {}),
+            FilledButton(
+              child: const Text('Connect'),
+              onPressed: () {
+                String projectId = dotenv.env['REOWN_PROJECT_ID'] ?? '';
+                debugPrint('Project ID: $projectId');
+              },
+            ),
           ],
         ),
       ),
